@@ -1,0 +1,135 @@
+:root {
+  --colors-primary: #34495e;
+  --colors-accent: #ffe0a7;
+  --colors-accent-hi: #fdcb6e;
+  --colors-background: #fff;
+  --colors-text: #333;
+  --colors-border: #60a3bc;
+  --colors-shadow: rgba(0, 0, 0, 0.15);
+  --colors-shadow-hi: rgba(0, 0, 0, 0.25);
+}
+/* General Style Enhancements */
+.App {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+}
+
+/* Header Styling Enhancements */
+header {
+  background-color: var(--colors-primary); /* Use color variable */
+  padding: 3rem 0;
+}
+
+.name {
+  font-size: 3rem;
+  letter-spacing: -1px;
+  text-shadow: 2px 2px 4px var(--colors-shadow);
+}
+.nickname {
+  margin-top: -15px;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Centering Header Icons */
+header a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 10px;
+  transition: transform 0.3s, box-shadow 0.3s, color 0.3s;
+}
+header a svg {
+  color: var(--colors-accent); /* Use color variable */
+  transition: transform 0.3s ease-in-out;
+}
+header a:hover svg {
+  color: var(--colors-accent-hi); /* Replace with your desired hover color */
+}
+header a:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px var(--colors-shadow);
+}
+
+.contact {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+
+section h2 {
+  color: var(--colors-text); /* Use color variable */
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  text-align: left;
+  border-bottom: 2px solid var(--colors-border); /* Use color variable */
+  display: inline-block;
+}
+
+/* Enhanced Article Styling */
+section > div > article {
+  background-color: var(--colors-background); /* Use color variable */
+  padding: 1.5rem;
+  margin-bottom: 2rem; /* Increased padding between articles */
+  border-radius: 10px;
+  box-shadow: 0 5px 15px var(--colors-shadow);
+  transition: all 0.3s ease-in-out;
+}
+
+section > div > article:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px var(--colors-shadow-hi); /* Use color variable */
+}
+
+.exp-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+article h3 {
+  font-weight: bold;
+}
+
+section > article > p {
+  color: var(--colors-text); /* Use color variable */
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-top: 0.5rem; /* Adding some spacing */
+}
+article h3,
+article p {
+  flex-basis: auto; /* Reset flex-basis */
+  margin-bottom: 0.5rem; /* Add some margin */
+  text-align: left; /* Align text to the left */
+}
+
+/* Styling for li icons */
+article li {
+  position: relative;
+  padding-left: 1.5em;
+}
+
+article li::before {
+  content: '•'; /* Icon/Marker for list items */
+  color: var(--colors-accent); /* Use color variable */
+  position: absolute;
+  left: 0;
+  margin-left: 0.5em; /* Adjusted left margin for padding to the right */
+}
+
+/* Footer Styling Enhancements */
+footer {
+  background-color: var(--colors-primary); /* Use color variable */
+  text-align: center;
+  /* padding: 1.5rem 0; */
+  color: var(--colors-background); /* Use color variable */
+}
+
+footer p {
+  /* margin: 0; */
+  font-size: 1rem;
+}
