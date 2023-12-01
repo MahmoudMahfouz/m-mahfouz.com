@@ -1,4 +1,5 @@
 // App.js
+import "./colors.css";
 import "./App.css";
 import React from "react";
 import Objective from "./Objective";

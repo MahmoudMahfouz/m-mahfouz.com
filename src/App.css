@@ -1,13 +1,4 @@
-:root {
-  --colors-primary: #34495e;
-  --colors-accent: #ffe0a7;
-  --colors-accent-hi: #fdcb6e;
-  --colors-background: #fff;
-  --colors-text: #333;
-  --colors-border: #60a3bc;
-  --colors-shadow: rgba(0, 0, 0, 0.15);
-  --colors-shadow-hi: rgba(0, 0, 0, 0.25);
-}
+
 /* General Style Enhancements */
 .App {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
