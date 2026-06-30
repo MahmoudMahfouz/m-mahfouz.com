@@ -1,24 +1,24 @@
-// App.js
-import "./colors.css";
-import "./App.css";
-import React from "react";
-import Objective from "./Objective";
-import Header from "./Header";
+import Nav from "./Nav";
+import Hero from "./Hero";
+import About from "./About";
 import Experience from "./Experience";
 import Skills from "./Skills";
+import Projects from "./Projects";
 import Education from "./Education";
 import Footer from "./Footer";
 
 function App() {
   return (
-    <div className="App">
-      <Header />
-      <Objective />
+    <>
+      <Nav />
+      <Hero />
+      <About />
       <Experience />
       <Skills />
+      <Projects />
       <Education />
       <Footer />
-    </div>
+    </>
   );
 }
 

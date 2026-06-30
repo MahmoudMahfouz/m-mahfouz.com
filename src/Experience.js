@@ -1,212 +1,174 @@
-import React from "react";
-import Article from "./Article"; // Import the Article component you created
+import { useInView } from "./hooks/useInView";
+
+const experiences = [
+  {
+    company: "Bitvavo",
+    role: "Senior DevOps / Performance Engineer",
+    period: "Feb 2025 — Feb 2026",
+    location: "Amsterdam",
+    highlights: [
+      "Benchmarked and optimized WebSocket gateway performance through extensive EC2 experiments, achieving 90K concurrent connections with <10ms p999 latency",
+      "Developed a high-performance WebSocket benchmarking tool in Golang, delivering 15\u00d7 more efficient testing throughput compared to existing setups",
+      "Standardized and unified logging practices across engineering teams, improving consistency and observability",
+    ],
+  },
+  {
+    company: "TLX Technology",
+    role: "Senior DevOps Engineer",
+    period: "Feb 2024 — Feb 2025",
+    location: "Amsterdam",
+    highlights: [
+      "Developed an automated database backup integrity validator using Golang and AWS Fargate for scheduled snapshot comparisons",
+      "Managed EKS clusters with Helm, implemented VPC peering, and refined Calico policies for robust network operations",
+      "Migrating AWS infrastructure from single account to Control Tower with CDKTF, leveraging Golang and TypeScript",
+      "Observability enhancements using Prometheus, Grafana, and Loki \u2014 alert optimization, metric relabeling, and custom dashboards",
+      "Migrated AWS VPN to CloudConnexa VPN, optimizing access control across multiple accounts and regions",
+    ],
+  },
+  {
+    company: "MessageBird / Bird",
+    role: "Senior Infrastructure Engineer",
+    period: "Feb 2021 — Jan 2024",
+    location: "Amsterdam",
+    highlights: [
+      "Managed a high-availability GitLab setup on Kubernetes, integrated with ElasticSearch",
+      "Automated GitLab upgrade processes and project migrations using custom Python tools",
+      "Developed a Golang tool to migrate 1,200+ projects from GitLab to GitHub, including secrets and CI pipeline translations",
+      "Managed and optimized GCP environments \u2014 IAM, GKE clusters, and multi-account networking",
+    ],
+  },
+  {
+    company: "Chartboost",
+    role: "Senior DevOps Engineer",
+    period: "Jul 2018 — Jan 2021",
+    location: "Amsterdam",
+    highlights: [
+      "Built and managed Kubernetes clusters across AWS and GCP, supporting latency-sensitive workloads with IaC for 800+ nodes",
+      "Created CD pipelines using Spinnaker, introducing traffic gating for controlled deployment rollouts",
+      "Ensured 99.9% SLA compliance with Kubernetes, Helm, Terraform, and Jenkins/Travis pipelines",
+      "Optimized infrastructure for high performance and reliability, supporting 5M requests per minute",
+    ],
+  },
+  {
+    company: "Bynder",
+    role: "DevOps Engineer",
+    period: "Aug 2017 — Jul 2018",
+    location: "Amsterdam",
+    highlights: [
+      "Managed IaC for 500+ nodes across AWS and on-premises, ensuring 99.9% SLA",
+      "Managed ELK stack for centralized log management; implemented Ossec for intrusion detection",
+      "Automated infrastructure provisioning with Terraform, Packer, and Ansible",
+    ],
+  },
+  {
+    company: "Instabug / Luciq",
+    role: "Senior Backend Engineer \u2192 Tech Lead",
+    period: "Nov 2015 — Jul 2017",
+    location: "Cairo",
+    highlights: [
+      "Led the backend-ops team, making strategic decisions and streamlining hiring to support growth",
+      "Optimized MySQL databases with 4+ billion rows, designing scalable indexes for performance",
+      "Developed auto-scaling solutions on AWS OpsWorks for high-traffic workloads",
+      "Built Elasticsearch clusters indexing 100+ million documents with multilingual search",
+      "Introduced Redis for caching and scalability, reducing latency for high-traffic components",
+    ],
+  },
+  {
+    company: "Raya Social Media",
+    role: "Tech Lead",
+    period: "Nov 2014 — Nov 2015",
+    location: "Cairo",
+    highlights: [
+      "Led cross-functional projects using Ruby on Rails, Angular, and Elasticsearch",
+      "Provisioned infrastructure with Chef, OpenStack, and Docker for AWS and on-prem deployments",
+      "Deployed ELK stack for production logging and data visualization",
+    ],
+  },
+  {
+    company: "Elmenus",
+    role: "Full-Stack Web Developer",
+    period: "May 2013 — Nov 2014",
+    location: "Cairo",
+    highlights: [
+      "Developed and optimized a secure RESTful API, significantly improving request handling times",
+      "Enhanced AWS architecture with cost-efficient solutions using Redis and Memcached",
+      "Designed UI/UX features with SASS, CSS3, and JavaScript, integrating animations and interactions",
+    ],
+  },
+];
+
+function TimelineEntry({ entry, index }) {
+  const [ref, visible] = useInView(0.1);
+
+  return (
+    <div
+      ref={ref}
+      className={`timeline-entry reveal ${visible ? "visible" : ""}`}
+      style={{ transitionDelay: `${Math.min(index * 80, 400)}ms` }}
+    >
+      <div className="timeline-dot" />
+
+      <div className="bg-white rounded-2xl p-6 md:p-8 border border-gray-100 hover:border-accent/20 hover:shadow-lg hover:shadow-accent/5 transition-all duration-400">
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-4">
+          <div>
+            <h3 className="font-display font-bold text-xl text-navy">
+              {entry.company}
+            </h3>
+            <p className="font-body font-medium text-accent text-sm mt-0.5">
+              {entry.role}
+            </p>
+          </div>
+          <div className="text-right sm:text-right shrink-0">
+            <p className="font-body text-sm text-gray-400 font-medium">
+              {entry.period}
+            </p>
+            <p className="font-body text-xs text-gray-400 mt-0.5">
+              {entry.location}
+            </p>
+          </div>
+        </div>
+
+        <ul className="space-y-2">
+          {entry.highlights.map((item, i) => (
+            <li
+              key={i}
+              className="flex gap-3 text-gray-600 font-body text-sm leading-relaxed"
+            >
+              <span className="text-teal mt-1.5 shrink-0">
+                <svg width="6" height="6" viewBox="0 0 6 6" fill="currentColor">
+                  <circle cx="3" cy="3" r="3" />
+                </svg>
+              </span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
 
 function Experience() {
+  const [ref, visible] = useInView();
+
   return (
-    <section id="experience" className="py-6 px-4">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-2xl font-semibold mb-4">Experience</h2>
+    <section id="experience" className="py-24 md:py-32 bg-white">
+      <div className="max-w-4xl mx-auto px-6">
+        <div
+          ref={ref}
+          className={`reveal ${visible ? "visible" : ""}`}
+        >
+          <div className="section-accent mb-6" />
+          <h2 className="font-display font-bold text-3xl md:text-4xl text-navy mb-16">
+            Experience
+          </h2>
+        </div>
 
-        <Article
-          title="MessageBird"
-          position="Senior Infrastructure Engineer"
-          date="Feb ’21 - Present"
-        >
-          <li>
-            Designed and managed Multi-Cloud/Multi-region Infrastructure as Code
-            (IaC) solutions using Kubernetes, Helm, Terraform, GitLab, Python,
-            and Go.
-          </li>
-          <li>
-            Created a time-saving automation tool in Golang during the
-            transition from GitLab to Github Actions for seamless migration,
-            benefiting the engineering team.
-          </li>
-        </Article>
-
-        <Article
-          title="Chartboost"
-          position="Senior DevOps"
-          date="July ’18 - Jan ’21"
-        >
-          <li>
-            Orchestrated IaaC for 800+ nodes and 5 million RPM, spanning
-            multiple regions and cloud platforms (AWS & GCP).
-          </li>
-          <li>
-            Leveraged Kubernetes, Spinnaker, Helm, Terraform, Packer,
-            Jenkins/Travis, Python, and Vault to ensure high availability (HA)
-            services meeting a 99.9% uptime service level agreement (SLA).
-          </li>
-        </Article>
-
-        <Article
-          title="Bynder"
-          position="Senior DevOps"
-          date="July ’17 - July ’18"
-        >
-          <li>
-            Developed and managed Infrastructure as Code (IaaC) for 500+
-            distributed nodes spanning multiple regions, leveraging Kubernetes,
-            Docker, Terraform, Packer, Ansible, Jenkins, Python, and Vault to
-            ensure high availability (HA) services meeting a 99.9% uptime
-            service level agreement (SLA).
-          </li>
-          <li>
-            Implemented ELK stack for efficient log management and utilized
-            Ossec for intrusion detection.
-          </li>
-        </Article>
-
-        <Article
-          title="Instabug (YC w16)"
-          position="Team leader (Backend)"
-          date="Nov ’16 - July ’17"
-        >
-          <li>Led a 7-member team</li>
-          <li>Spearheaded the transition to a micro-services architecture</li>
-          <li>
-            Actively participated in cross-functional meetings with Scrum
-            master, CTO, CEO, and fellow team leads to enhance development
-            processes, overall productivity, pointing system, and team
-            satisfaction
-          </li>
-          <li>
-            Prioritized team-building by regularly meeting with members to
-            understand their technical interests, strengths, weaknesses, and
-            adjust business strategies accordingly
-          </li>
-          <li>
-            A strong advocate for motivating team members and fostering their
-            passion for their work
-          </li>
-        </Article>
-        <Article
-          title="Instabug (YC w16)"
-          position="Senior backend engineer"
-          date="Nov ’15 - Nov ’16"
-        >
-          <li>
-            Transformed infrastructure from EC2 & EBS to PaaS with Docker,
-            Mesos, Marathon, Consul, Prometheus, and ELK to facilitate
-            monolithic-to- microservices migration.
-          </li>
-          <li>
-            Engineered scalable infrastructure for processing 4+ billion
-            background jobs.
-          </li>
-          <li>
-            Integrated Elasticsearch with 100+ million documents for real-time
-            search and aggregations.
-          </li>
-          <li>
-            Enhanced MySQL database performance by optimizing queries,
-            structure, and indexes for tables with 2+ billion rows.
-          </li>
-          <li>
-            Contributed to Rails app development, crafted Chef recipes, and
-            managed AWS resources.
-          </li>
-        </Article>
-
-        <Article
-          title="Raya Social Media"
-          position="Tech Lead"
-          date="Nov ’14 - Nov ’15"
-        >
-          <li>
-            Led multiple Ruby on Rails, Angular.js, Elasticsearch, and
-            Ng-Cordova projects.
-          </li>
-          <li>
-            Managed bare-metal infrastructure provisioning with Chef, Docker,
-            and Xen project.
-          </li>
-          <li>
-            Implemented ELK stack for production logging, adhering to the
-            "Measure everything, Measure anything" philosophy.
-          </li>
-          <li>
-            Developed, maintained, and secured web applications using RoR,
-            Angular.js, Elasticsearch, and MariaDB.
-          </li>
-          <li>Created mobile applications using Ng-Cordova.</li>
-          <li>
-            Conducted load testing for web applications using Apache jMeter.
-          </li>
-        </Article>
-
-        <Article
-          title="Elmenus"
-          position="Full-stack web developer"
-          date="Oct ’13 - Nov ’14"
-        >
-          <li>
-            Developed a robust and secure RESTful API (OAuth provider) to manage
-            requests from the website, iOS app, and Android app.
-          </li>
-          <li>
-            Enhanced request loading times through algorithmic improvements,
-            optimized database queries, and efficient caching (utilizing
-            Memcached and Redis).
-          </li>
-          <li>
-            Conducted rigorous load testing of the API using Apache jMeter and
-            monitored performance metrics with New Relic.
-          </li>
-          <li>
-            Oversaw the setup, security, and configuration of the AWS
-            architecture, including EC2, RDS, Elasticache, and S3.
-          </li>
-          <li>
-            Crafted the frontend using technologies like Ajax, jQuery, and
-            underscore, alongside other essential libraries.
-          </li>
-          <li>
-            Led UI design with Sass, CSS3, and Twitter Bootstrap to ensure an
-            engaging user experience.
-          </li>
-          <li>
-            Employed ELK and Redis for data visualization and analysis, enabling
-            data- driven insights.
-          </li>
-        </Article>
-
-        <Article
-          title="OTVentures"
-          position="Solution developer (asp.net)"
-          date="Oct ’13 - Nov ’14"
-        >
-          <li>
-            Collaborated with a team of three professionals developing secure
-            website of the Commercial International Bank (CIB).
-          </li>
-          <li>Coded and maintained web components using asp.net and C#.</li>
-          <li>
-            Designed and optimized the database schema for improved performance
-            and scalability.
-          </li>
-          <li>
-            Seamlessly integrated social networking platforms, including Twitter
-            and Facebook, into the website to boost its online presence and
-            engagement.
-          </li>
-        </Article>
-
-        <Article
-          title="Conscription"
-          position="Network Engineer"
-          date="Oct ’11 - Jan ’13"
-        >
-          <li>
-            Led IT team alongside military training, overseeing network setup
-            and management (VLANs) for hundreds of devices.
-          </li>
-          <li>
-            Maintained network connectivity and executed computer system
-            installations and configurations.
-          </li>
-        </Article>
+        <div className="timeline">
+          {experiences.map((entry, i) => (
+            <TimelineEntry key={entry.company} entry={entry} index={i} />
+          ))}
+        </div>
       </div>
     </section>
   );
